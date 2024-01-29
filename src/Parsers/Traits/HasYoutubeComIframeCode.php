@@ -19,7 +19,7 @@ trait HasYoutubeComIframeCode
     public function getIframeCode(
         string $id,
         string $original,
-        array $urlQuery = [],
+        array $linkQuery = [],
         array $attributes = [],
         ?string $type = null,
     ): ?string {
@@ -31,19 +31,19 @@ trait HasYoutubeComIframeCode
             'single' => ['url' => "https://www.youtube.com/embed/{$id}"],
         ];
 
-        if (null === ($url = $mapTypes[$type] ?? null)) {
+        if (null === ($link = $mapTypes[$type] ?? null)) {
             return null;
         }
 
-        if ($url['id'] ?? false) {
-            $urlQuery[$url['id']] = $id;
+        if ($link['id'] ?? false) {
+            $linkQuery[$link['id']] = $id;
         }
 
-        $url = $url['url'].'?'.http_build_query($urlQuery);
+        $link = $link['url'].'?'.http_build_query($linkQuery);
 
         $string = '<iframe %s />';
 
-        $attributes['src'] = $url;
+        $attributes['src'] = $link;
 
         $keyedAttributes = [];
 

@@ -71,15 +71,15 @@ class TwitchTVParser implements VideoParserContract
             'collections' => ['url' => 'https://player.twitch.tv', 'id' => 'collection'],
         ];
 
-        if (null === ($url = $mapTypes[$type] ?? null)) {
+        if (null === ($link = $mapTypes[$type] ?? null)) {
             return null;
         }
 
-        if ($url['id'] ?? false) {
-            $urlQuery[$url['id']] = $id;
+        if ($link['id'] ?? false) {
+            $urlQuery[$link['id']] = $id;
         }
 
-        $url = $url['url'].'?'.http_build_query($urlQuery);
+        $url = $link['url'].'?'.http_build_query($urlQuery);
 
         $string = '<iframe %s />';
 

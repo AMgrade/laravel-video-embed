@@ -60,9 +60,7 @@ class TikTokComParser implements VideoParserContract
         array $attributes = [],
         ?string $type = null,
     ): ?string {
-        $url = 'https://www.tiktok.com/embed/v2/';
-
-        $url = "{$url}{$id}";
+        $url = "https://www.tiktok.com/embed/v2/{$id}";
 
         if (!empty($urlQuery)) {
             $url .= '?'.http_build_query($urlQuery);
