@@ -21,7 +21,7 @@ use const null;
 
 class VideoIdParserHelper
 {
-    public static array $iframeConfig = [];
+    protected static array $iframeConfig = [];
 
     public static function getVideoUrlAttributes($value): array
     {
@@ -40,19 +40,16 @@ class VideoIdParserHelper
         }
 
         $key = $videoUrl['key'] ?? null;
-        $type = $videoUrl['type'] ?? null;
-        $id = $videoUrl['id'] ?? '';
-        $original = $videoUrl['original'] ?? '';
 
         [$urlQuery, $attributes] = self::getIframeDataByKey($key);
 
         return Container::getInstance()->make(VideoIdParser::class)->getIframeCode(
             $key,
-            $id,
-            $original,
+            $videoUrl['id'] ?? '',
+            $videoUrl['original'] ?? '',
             $urlQuery,
             $attributes,
-            $type,
+            $videoUrl['type'] ?? null,
         );
     }
 

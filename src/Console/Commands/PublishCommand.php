@@ -14,11 +14,9 @@ class PublishCommand extends Command
 
     public function handle(): int
     {
-        $this->call('vendor:publish', [
+        return $this->call('vendor:publish', [
             '--tag' => 'video-embed-config',
             '--force' => $this->option('force'),
         ]);
-
-        return self::SUCCESS;
     }
 }

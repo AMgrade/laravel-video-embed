@@ -39,7 +39,7 @@ class YoutubeComParser implements VideoIdParserContract
         $methods = ['Playlist', 'Shorts', 'Watch'];
 
         foreach ($methods as $method) {
-            $method = "getFrom{$method}";
+            $method = "parseFrom{$method}";
 
             if (null !== ($result = $this->{$method}($parsed))) {
                 return $result;
@@ -54,7 +54,7 @@ class YoutubeComParser implements VideoIdParserContract
         return (bool) preg_match('~(?:www\.)?(?:m\.)?youtube\.com~i', $url);
     }
 
-    protected function getFromPlaylist(array $parsed): ?array
+    protected function parseFromPlaylist(array $parsed): ?array
     {
         if (
             null === ($parsed['query'] ?? null) ||
@@ -79,7 +79,7 @@ class YoutubeComParser implements VideoIdParserContract
         ];
     }
 
-    protected function getFromShorts(array $parsed): ?array
+    protected function parseFromShorts(array $parsed): ?array
     {
         if (!str_starts_with($parsed['path'], 'shorts')) {
             return null;
@@ -101,7 +101,7 @@ class YoutubeComParser implements VideoIdParserContract
         ];
     }
 
-    protected function getFromWatch(array $parsed): ?array
+    protected function parseFromWatch(array $parsed): ?array
     {
         if (!str_starts_with($parsed['path'], 'watch')) {
             return null;

@@ -39,7 +39,7 @@ class VimeoComParser implements VideoIdParserContract
         ];
 
         foreach ($pathTypes as $type) {
-            $result = $this->getFromPath($parsed['path'], $type);
+            $result = $this->parseFromPath($parsed['path'], $type);
 
             if (null !== $result) {
                 return $result;
@@ -92,7 +92,7 @@ class VimeoComParser implements VideoIdParserContract
         return sprintf($string, implode(' ', $keyedAttributes));
     }
 
-    protected function getFromPath(string $parsedPath, string $type): ?array
+    protected function parseFromPath(string $parsedPath, string $type): ?array
     {
         if ((int) $parsedPath !== 0) {
             $videoId = $parsedPath;

@@ -41,14 +41,14 @@ class TwitchTVParser implements VideoIdParserContract
         ];
 
         foreach ($pathTypes as $type) {
-            $result = $this->getFromPathType($parsed['path'], $type);
+            $result = $this->parseFromPathType($parsed['path'], $type);
 
             if (null !== $result) {
                 return $result;
             }
         }
 
-        return $this->getFromClip($parsed);
+        return $this->parseFromClip($parsed);
     }
 
     public function validate(string $url): bool
@@ -96,7 +96,7 @@ class TwitchTVParser implements VideoIdParserContract
         return sprintf($string, implode(' ', $keyedAttributes));
     }
 
-    protected function getFromPathType(string $parsedPath, string $type): ?array
+    protected function parseFromPathType(string $parsedPath, string $type): ?array
     {
         if (!str_contains($parsedPath, $type)) {
             return null;
@@ -118,7 +118,7 @@ class TwitchTVParser implements VideoIdParserContract
         ];
     }
 
-    protected function getFromClip(array $parsed): ?array
+    protected function parseFromClip(array $parsed): ?array
     {
         if (!str_contains($parsed['host'], 'clip')) {
             return null;

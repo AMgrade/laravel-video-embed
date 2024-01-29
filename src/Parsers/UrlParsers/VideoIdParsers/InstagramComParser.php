@@ -36,7 +36,7 @@ class InstagramComParser implements VideoIdParserContract
 
         $pathTypes = ['reel/', 'reels/', 'p/'];
 
-        return $this->getFromPaths($pathTypes, $parsed['path']);
+        return $this->parseFromPaths($pathTypes, $parsed['path']);
     }
 
     public function validate(string $url): bool
@@ -70,7 +70,7 @@ class InstagramComParser implements VideoIdParserContract
         return sprintf($string, implode(' ', $keyedAttributes));
     }
 
-    protected function getFromPaths(array $paths, string $parsedPath): ?array
+    protected function parseFromPaths(array $paths, string $parsedPath): ?array
     {
         foreach ($paths as $path) {
             if (!str_starts_with($parsedPath, $path)) {

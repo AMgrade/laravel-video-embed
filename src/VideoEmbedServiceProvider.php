@@ -26,7 +26,7 @@ class VideoEmbedServiceProvider extends BaseServiceProvider
 
     protected function registerParsers(): void
     {
-        $this->app->singleton(VideoIdParser::class, VideoIdParser::class);
+        $this->app->singleton(VideoIdParser::class);
     }
 
     protected function registerCommands(): void

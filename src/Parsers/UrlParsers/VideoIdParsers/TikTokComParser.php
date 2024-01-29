@@ -37,7 +37,7 @@ class TikTokComParser implements VideoIdParserContract
         $methods = ['Video', 'Vm'];
 
         foreach ($methods as $method) {
-            $method = "getFrom{$method}";
+            $method = "parseFrom{$method}";
 
             if (null !== ($result = $this->{$method}($parsed))) {
                 return $result;
@@ -83,7 +83,7 @@ class TikTokComParser implements VideoIdParserContract
         return sprintf($string, implode(' ', $keyedAttributes));
     }
 
-    protected function getFromVideo(array $parsed): ?array
+    protected function parseFromVideo(array $parsed): ?array
     {
         if (!str_contains($parsed['path'], 'video')) {
             return null;
@@ -105,7 +105,7 @@ class TikTokComParser implements VideoIdParserContract
         ];
     }
 
-    protected function getFromVm(array $parsed): ?array
+    protected function parseFromVm(array $parsed): ?array
     {
         if (!str_contains($parsed['host'], 'vm')) {
             return null;

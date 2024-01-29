@@ -57,9 +57,7 @@ class WistiaComParser implements VideoIdParserContract
         array $attributes = [],
         ?string $type = null,
     ): ?string {
-        $url = 'https://fast.wistia.net/embed/iframe/';
-
-        $url = "{$url}{$id}";
+        $url = "https://fast.wistia.net/embed/iframe/{$id}";
 
         if (!empty($urlQuery)) {
             $url .= '?'.http_build_query($urlQuery);

@@ -20,7 +20,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "VideoEmbedServiceProvider"
+        "AMgrade\\VideoEmbed\\VideoEmbedServiceProvider"
       ]
     }
   }

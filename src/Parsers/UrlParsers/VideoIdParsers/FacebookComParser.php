@@ -39,7 +39,7 @@ class FacebookComParser implements VideoIdParserContract
         $methods = ['Videos', 'Watch'];
 
         foreach ($methods as $method) {
-            $method = "getFrom{$method}";
+            $method = "parseFrom{$method}";
 
             if (null !== ($result = $this->{$method}($parsed))) {
                 return $result;
@@ -54,7 +54,7 @@ class FacebookComParser implements VideoIdParserContract
         return (bool) preg_match('~(?:www\.)?facebook\.com~i', $url);
     }
 
-    protected function getFromVideos(array $parsed): ?array
+    protected function parseFromVideos(array $parsed): ?array
     {
         if (!str_contains($parsed['path'], 'videos')) {
             return null;
@@ -76,7 +76,7 @@ class FacebookComParser implements VideoIdParserContract
         ];
     }
 
-    protected function getFromWatch(array $parsed): ?array
+    protected function parseFromWatch(array $parsed): ?array
     {
         if (!str_starts_with($parsed['path'], 'watch')) {
             return null;
