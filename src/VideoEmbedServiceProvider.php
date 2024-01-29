@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed;
 
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParser;
+use AMgrade\VideoEmbed\Parsers\VideoParser;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class VideoEmbedServiceProvider extends BaseServiceProvider
@@ -26,7 +26,7 @@ class VideoEmbedServiceProvider extends BaseServiceProvider
 
     protected function registerParsers(): void
     {
-        $this->app->singleton(VideoIdParser::class);
+        $this->app->singleton(VideoParser::class);
     }
 
     protected function registerCommands(): void

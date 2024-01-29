@@ -29,7 +29,7 @@ For configuring video iframe open `config/video-embed.php` and add or change hei
 
 You can add the keys of parsers that need to be used in video URL parsing in section `video-parsers`, `keys` in `config/video-embed.php`.
 
-For getting parsed video information call `getVideoUrlAttributes` method from `VideoIdParserHelper` and pass video URL.
+For getting parsed video information call `getVideoUrlAttributes` method from `VideoParserHelper` and pass video URL.
 
 Example of received data from a parsed video URL: 
 
@@ -42,4 +42,4 @@ Example of received data from a parsed video URL:
 }
 ```
 
-For getting video iframe code call `getVideoIframeCode` method and pass result into `getVideoUrlAttributes` method from `VideoIdParserHelper` for getting iframe tag with information for reflection video.
+For getting video iframe code call `getVideoIframeCode` method and pass result into `getVideoUrlAttributes` method from `VideoParserHelper` for getting iframe tag with information for reflection video.

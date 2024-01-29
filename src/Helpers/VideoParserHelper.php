@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Helpers;
 
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParser;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\FacebookComParser;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\InstagramComParser;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\TikTokComParser;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\TwitchTVParser;
+use AMgrade\VideoEmbed\Parsers\FacebookComParser;
+use AMgrade\VideoEmbed\Parsers\InstagramComParser;
+use AMgrade\VideoEmbed\Parsers\TikTokComParser;
+use AMgrade\VideoEmbed\Parsers\TwitchTVParser;
+use AMgrade\VideoEmbed\Parsers\VideoParser;
 use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
@@ -19,7 +19,7 @@ use function ucfirst;
 
 use const null;
 
-class VideoIdParserHelper
+class VideoParserHelper
 {
     protected static array $iframeConfig = [];
 
@@ -43,7 +43,7 @@ class VideoIdParserHelper
 
         [$urlQuery, $attributes] = self::getIframeDataByKey($key);
 
-        return Container::getInstance()->make(VideoIdParser::class)->getIframeCode(
+        return Container::getInstance()->make(VideoParser::class)->getIframeCode(
             $key,
             $videoUrl['id'] ?? '',
             $videoUrl['original'] ?? '',
@@ -69,7 +69,7 @@ class VideoIdParserHelper
         );
 
         return Container::getInstance()
-            ->make(VideoIdParser::class)
+            ->make(VideoParser::class)
             ->parse($url, $keys);
     }
 

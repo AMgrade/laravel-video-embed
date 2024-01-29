@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers;
+namespace AMgrade\VideoEmbed\Parsers;
 
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParserContract;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\Traits\HasFacebookComIframeCode;
+use AMgrade\VideoEmbed\Parsers\Traits\HasFacebookComIframeCode;
 use Illuminate\Support\Facades\Log;
 use McMatters\Ticl\Client;
 use Throwable;
@@ -26,7 +25,7 @@ use const null;
 use const PHP_URL_PATH;
 use const PHP_URL_QUERY;
 
-class FbWatchParser implements VideoIdParserContract
+class FbWatchParser implements VideoParserContract
 {
     use HasFacebookComIframeCode;
 

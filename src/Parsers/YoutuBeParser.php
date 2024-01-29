@@ -2,17 +2,16 @@
 
 declare(strict_types=1);
 
-namespace AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers;
+namespace AMgrade\VideoEmbed\Parsers;
 
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParserContract;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\Traits\HasYoutubeComIframeCode;
+use AMgrade\VideoEmbed\Parsers\Traits\HasYoutubeComIframeCode;
 
 use function preg_match;
 use function trim;
 
 use const null;
 
-class YoutuBeParser implements VideoIdParserContract
+class YoutuBeParser implements VideoParserContract
 {
     use HasYoutubeComIframeCode;
 

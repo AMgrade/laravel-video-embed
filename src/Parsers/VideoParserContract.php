@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AMgrade\VideoEmbed\Parsers\UrlParsers;
+namespace AMgrade\VideoEmbed\Parsers;
 
 use const null;
 
-interface VideoIdParserContract
+interface VideoParserContract
 {
     public function parse(array $parsed, string $url): ?array;
 

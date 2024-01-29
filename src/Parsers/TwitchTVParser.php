@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers;
-
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParserContract;
+namespace AMgrade\VideoEmbed\Parsers;
 
 use function http_build_query;
 use function implode;
@@ -19,7 +17,7 @@ use function trim;
 use const false;
 use const null;
 
-class TwitchTVParser implements VideoIdParserContract
+class TwitchTVParser implements VideoParserContract
 {
     public const KEY = 'twitch.tv';
 

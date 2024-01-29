@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers;
-
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParserContract;
+namespace AMgrade\VideoEmbed\Parsers;
 
 use function http_build_query;
 use function implode;
@@ -16,7 +14,7 @@ use function sprintf;
 
 use const null;
 
-class WistiaComParser implements VideoIdParserContract
+class WistiaComParser implements VideoParserContract
 {
     public const KEY = 'wistia.com';
 

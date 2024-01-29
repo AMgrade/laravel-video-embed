@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\FacebookComParser;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\InstagramComParser;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\TikTokComParser;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\TwitchTVParser;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\VimeoComParser;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\YoutubeComParser;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\YoutuBeParser;
+use AMgrade\VideoEmbed\Parsers\FacebookComParser;
+use AMgrade\VideoEmbed\Parsers\InstagramComParser;
+use AMgrade\VideoEmbed\Parsers\TikTokComParser;
+use AMgrade\VideoEmbed\Parsers\TwitchTVParser;
+use AMgrade\VideoEmbed\Parsers\VimeoComParser;
+use AMgrade\VideoEmbed\Parsers\YoutubeComParser;
+use AMgrade\VideoEmbed\Parsers\YoutuBeParser;
 
 return [
     // List of settings for video iframes

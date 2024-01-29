@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\Traits;
+namespace AMgrade\VideoEmbed\Parsers\Traits;
 
 use function http_build_query;
 use function implode;

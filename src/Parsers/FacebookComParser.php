@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers;
+namespace AMgrade\VideoEmbed\Parsers;
 
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParserContract;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\Traits\HasFacebookComIframeCode;
+use AMgrade\VideoEmbed\Parsers\Traits\HasFacebookComIframeCode;
 
 use function explode;
 use function mb_strlen;
@@ -18,7 +17,7 @@ use function trim;
 
 use const null;
 
-class FacebookComParser implements VideoIdParserContract
+class FacebookComParser implements VideoParserContract
 {
     use HasFacebookComIframeCode;
 

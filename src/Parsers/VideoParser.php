@@ -2,17 +2,8 @@
 
 declare(strict_types=1);
 
-namespace AMgrade\VideoEmbed\Parsers\UrlParsers;
+namespace AMgrade\VideoEmbed\Parsers;
 
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\FacebookComParser;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\FbWatchParser;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\InstagramComParser;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\TikTokComParser;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\TwitchTVParser;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\VimeoComParser;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\WistiaComParser;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\YoutubeComParser;
-use AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParsers\YoutuBeParser;
 use InvalidArgumentException;
 
 use function array_keys;
@@ -23,7 +14,7 @@ use const false;
 use const null;
 use const true;
 
-class VideoIdParser
+class VideoParser
 {
     protected array $parsers = [
         FacebookComParser::KEY => FacebookComParser::class,
@@ -93,7 +84,7 @@ class VideoIdParser
     }
 
     /**
-     * @return \AMgrade\VideoEmbed\Parsers\UrlParsers\VideoIdParserContract[]
+     * @return \AMgrade\VideoEmbed\Parsers\VideoParserContract[]
      */
     protected function getParsers(array $keys = []): array
     {
@@ -106,7 +97,7 @@ class VideoIdParser
         return $parsers;
     }
 
-    protected function getParser(string $key): VideoIdParserContract
+    protected function getParser(string $key): VideoParserContract
     {
         if (!isset($this->parsers[$key])) {
             throw new InvalidArgumentException(
