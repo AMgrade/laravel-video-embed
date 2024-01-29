@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Parsers;
 
+use AMgrade\VideoEmbed\Parsers\Traits\HasIframeConfig;
 use AMgrade\VideoEmbed\Parsers\Traits\HasYoutubeComIframeCode;
 
 use function explode;
@@ -20,6 +21,7 @@ use const null;
 class YoutubeComParser implements VideoParserContract
 {
     use HasYoutubeComIframeCode;
+    use HasIframeConfig;
 
     public const KEY = 'youtube.com';
 

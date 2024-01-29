@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AMgrade\VideoEmbed\Parsers;
 
 use AMgrade\VideoEmbed\Parsers\Traits\HasFacebookComIframeCode;
+use AMgrade\VideoEmbed\Parsers\Traits\HasIframeConfig;
 use Illuminate\Support\Facades\Log;
 use McMatters\Ticl\Client;
 use Throwable;
@@ -28,8 +29,11 @@ use const PHP_URL_QUERY;
 class FbWatchParser implements VideoParserContract
 {
     use HasFacebookComIframeCode;
+    use HasIframeConfig;
 
     public const KEY = 'fb.watch';
+
+    public const CONFIG_KEY = 'query';
 
     public function parse(array $parsed, string $url): ?array
     {

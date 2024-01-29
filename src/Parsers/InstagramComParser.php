@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Parsers;
 
+use AMgrade\VideoEmbed\Parsers\Traits\HasIframeConfig;
+
 use function http_build_query;
 use function implode;
 use function mb_strlen;
@@ -18,7 +20,11 @@ use const null;
 
 class InstagramComParser implements VideoParserContract
 {
+    use HasIframeConfig;
+
     public const KEY = 'instagram.com';
+
+    public const CONFIG_KEY = 'query';
 
     public function parse(array $parsed, string $url): ?array
     {

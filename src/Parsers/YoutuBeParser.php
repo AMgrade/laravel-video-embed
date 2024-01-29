@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Parsers;
 
+use AMgrade\VideoEmbed\Parsers\Traits\HasIframeConfig;
 use AMgrade\VideoEmbed\Parsers\Traits\HasYoutubeComIframeCode;
 
 use function preg_match;
@@ -14,6 +15,7 @@ use const null;
 class YoutuBeParser implements VideoParserContract
 {
     use HasYoutubeComIframeCode;
+    use HasIframeConfig;
 
     public const KEY = 'youtu.be';
 

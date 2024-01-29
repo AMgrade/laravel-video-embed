@@ -6,6 +6,8 @@ namespace AMgrade\VideoEmbed\Parsers;
 
 use AMgrade\VideoEmbed\Parsers\Traits\HasFacebookComIframeCode;
 
+use AMgrade\VideoEmbed\Parsers\Traits\HasIframeConfig;
+
 use function explode;
 use function mb_strlen;
 use function mb_strpos;
@@ -20,8 +22,11 @@ use const null;
 class FacebookComParser implements VideoParserContract
 {
     use HasFacebookComIframeCode;
+    use HasIframeConfig;
 
     public const KEY = 'facebook.com';
+
+    public const CONFIG_KEY = 'query';
 
     public function parse(array $parsed, string $url): ?array
     {
