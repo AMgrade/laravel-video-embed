@@ -12,6 +12,9 @@
     "laravel/framework": "9.* || 10.*",
     "mcmatters/ticl": "^0.4.2"
   },
+  "require-dev": {
+    "phpunit/phpunit": "^10.5"
+  },
   "autoload": {
     "psr-4": {
       "AMgrade\\VideoEmbed\\": "src/"
@@ -22,6 +25,11 @@
       "providers": [
         "AMgrade\\VideoEmbed\\VideoEmbedServiceProvider"
       ]
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
     }
   }
 }
