@@ -24,11 +24,6 @@ class VideoEmbedServiceProvider extends BaseServiceProvider
         );
     }
 
-    protected function registerVideoParser(): void
-    {
-        $this->app->singleton(VideoParser::class);
-    }
-
     protected function registerCommands(): void
     {
         if ($this->app->runningInConsole()) {
@@ -45,5 +40,10 @@ class VideoEmbedServiceProvider extends BaseServiceProvider
                 __DIR__.'/../config/video-embed.php' => $this->app->configPath('video-embed.php'),
             ], 'video-embed-config');
         }
+    }
+
+    protected function registerVideoParser(): void
+    {
+        $this->app->singleton(VideoParser::class);
     }
 }
