@@ -12,7 +12,7 @@ class VideoEmbedServiceProvider extends BaseServiceProvider
     public function boot(): void
     {
         $this->registerCommands();
-        $this->registerParsers();
+        $this->registerParser();
         $this->registerPublishing();
     }
 
@@ -24,7 +24,7 @@ class VideoEmbedServiceProvider extends BaseServiceProvider
         );
     }
 
-    protected function registerParsers(): void
+    protected function registerParser(): void
     {
         $this->app->singleton(VideoParser::class);
     }
