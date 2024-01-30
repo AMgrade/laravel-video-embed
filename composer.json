@@ -1,0 +1,27 @@
+{
+  "name": "amgrade/laravel-video-embed",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Tatiana Pshenyshna",
+      "email": "t.pshenyshna@amgrade.com"
+    }
+  ],
+  "require": {
+    "php": ">=8.0.2",
+    "laravel/framework": "9.* || 10.*",
+    "mcmatters/ticl": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "AMgrade\\VideoEmbed\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "AMgrade\\VideoEmbed\\VideoEmbedServiceProvider"
+      ]
+    }
+  }
+}
