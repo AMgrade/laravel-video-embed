@@ -79,15 +79,6 @@ class VideoEmbedHelper
             ->parse($url, $keys);
     }
 
-    protected static function getIframeConfig(?string $key = null): array
-    {
-        if (empty(self::$iframeConfig)) {
-            self::$iframeConfig = Config::get('video-embed.iframe');
-        }
-
-        return $key ? (self::$iframeConfig[$key] ?? []) : self::$iframeConfig;
-    }
-
     protected static function getIframeDataByKey(?string $key = null): array
     {
         self::$parsersMapping = Config::get('video-embed.video-parsers', []);
@@ -122,5 +113,14 @@ class VideoEmbedHelper
         );
 
         return $iframeConfig;
+    }
+
+    protected static function getIframeConfig(?string $key = null): array
+    {
+        if (empty(self::$iframeConfig)) {
+            self::$iframeConfig = Config::get('video-embed.iframe');
+        }
+
+        return $key ? (self::$iframeConfig[$key] ?? []) : self::$iframeConfig;
     }
 }
