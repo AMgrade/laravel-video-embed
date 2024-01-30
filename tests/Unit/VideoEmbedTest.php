@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit;
+namespace AMgrade\VideoEmbed\Tests\Unit;
 
 use AMgrade\VideoEmbed\Parsers\VideoParser;
 use Illuminate\Container\Container;
