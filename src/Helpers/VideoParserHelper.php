@@ -5,23 +5,50 @@ declare(strict_types=1);
 namespace AMgrade\VideoEmbed\Helpers;
 
 use AMgrade\VideoEmbed\Parsers\FacebookComParser;
+use AMgrade\VideoEmbed\Parsers\FbWatchParser;
 use AMgrade\VideoEmbed\Parsers\InstagramComParser;
 use AMgrade\VideoEmbed\Parsers\TikTokComParser;
 use AMgrade\VideoEmbed\Parsers\TwitchTVParser;
 use AMgrade\VideoEmbed\Parsers\VideoParser;
+use AMgrade\VideoEmbed\Parsers\VimeoComParser;
+use AMgrade\VideoEmbed\Parsers\WistiaComParser;
+use AMgrade\VideoEmbed\Parsers\YoutubeComParser;
+use AMgrade\VideoEmbed\Parsers\YoutuBeParser;
 use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Str;
-
-use function explode;
-use function method_exists;
-use function ucfirst;
+use InvalidArgumentException;
 
 use const null;
 
 class VideoParserHelper
 {
     protected static array $iframeConfig = [];
+
+    protected static array $parsersMapping = [];
+
+    protected function __construct(
+        FacebookComParser $facebookComParser,
+        FbWatchParser $fbWatchParser,
+        InstagramComParser $instagramComParser,
+        TikTokComParser $tikTokComParser,
+        TwitchTVParser $twitchTVParser,
+        VimeoComParser $vimeoComParser,
+        WistiaComParser $wistiaComParser,
+        YoutubeComParser $youtubeComParser,
+        YoutuBeParser $youtuBeParser,
+    ) {
+        self::$parsersMapping = [
+            $facebookComParser::KEY => $facebookComParser,
+            $fbWatchParser::KEY => $fbWatchParser,
+            $instagramComParser::KEY => $instagramComParser,
+            $tikTokComParser::KEY => $tikTokComParser,
+            $twitchTVParser::KEY => $twitchTVParser,
+            $vimeoComParser::KEY => $vimeoComParser,
+            $wistiaComParser::KEY => $wistiaComParser,
+            $youtubeComParser::KEY => $youtubeComParser,
+            $youtuBeParser::KEY => $youtuBeParser,
+        ];
+    }
 
     public static function getVideoUrlAttributes($value): array
     {
@@ -84,83 +111,33 @@ class VideoParserHelper
 
     protected static function getIframeDataByKey(string $key): array
     {
-        $keyPaths = explode('.', $key);
-
-        $key = '';
-
-        foreach ($keyPaths as $keyPath) {
-            $key .= ucfirst(Str::camel($keyPath));
+        if (!isset(self::$parsersMapping[$key])) {
+            throw new InvalidArgumentException(
+                "Provided parser key {$key} is invalid",
+            );
         }
 
-        $method = "get{$key}Data";
+        $defaultIframeConfig = self::getIframeConfig('default');
 
-        return method_exists(static::class, $method)
-            ? self::{$method}()
-            : [[], self::getKeyedAttributes()];
-    }
+        $iframeConfig = self::$parsersMapping[$key]->getIframeConfig() ?? [];
 
-    protected static function getFacebookComData(): array
-    {
-        $iframeConfig = self::getIframeConfig(FacebookComParser::KEY);
+        if (!in_array('attributes', $iframeConfig, true)) {
+            $iframeConfig['attributes'] = [
+                'height' => $defaultIframeConfig['attributes']['height'],
+                'width' => $defaultIframeConfig['attributes']['width'],
+            ];
+        }
 
-        return [
-            $iframeConfig['query'],
-            self::getKeyedAttributes(),
-        ];
-    }
+        $iframeConfig['attributes'] = array_merge(
+            $iframeConfig['attributes'],
+            [
+                'frameborder' => '0',
+                'allow' => 'autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture',
+                'allowfullscreen' => 'true',
+                'allowtransparency' => 'true',
+            ]
+        );
 
-    protected static function getFbWatchData(): array
-    {
-        return self::getFacebookComData();
-    }
-
-    protected static function getInstagramComData(): array
-    {
-        $iframeConfig = self::getIframeConfig(InstagramComParser::KEY);
-
-        return [
-            [],
-            self::getKeyedAttributes(
-                $iframeConfig['attributes']['height'],
-                $iframeConfig['attributes']['width'],
-            ),
-        ];
-    }
-
-    protected static function getTikTokComData(): array
-    {
-        $iframeConfig = self::getIframeConfig(TikTokComParser::KEY);
-
-        return [
-            [],
-            self::getKeyedAttributes(
-                $iframeConfig['attributes']['height'],
-                $iframeConfig['attributes']['width'],
-            ),
-        ];
-    }
-
-    protected static function getTwitchTvData(): array
-    {
-        $iframeConfig = self::getIframeConfig(TwitchTVParser::KEY);
-
-        return [
-            $iframeConfig['query'],
-            self::getKeyedAttributes(),
-        ];
-    }
-
-    protected static function getKeyedAttributes(?int $height = null, ?int $width = null): array
-    {
-        $iframeConfig = self::getIframeConfig('default');
-
-        return [
-            'height' => $height ?? $iframeConfig['attributes']['height'],
-            'width' => $width ?? $iframeConfig['attributes']['width'],
-            'frameborder' => '0',
-            'allow' => 'autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture',
-            'allowfullscreen' => 'true',
-            'allowtransparency' => 'true',
-        ];
+        return $iframeConfig;
     }
 }
