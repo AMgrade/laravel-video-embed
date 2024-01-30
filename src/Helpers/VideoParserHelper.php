@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Helpers;
 
-use AMgrade\VideoEmbed\Parsers\FacebookComParser;
-use AMgrade\VideoEmbed\Parsers\FbWatchParser;
-use AMgrade\VideoEmbed\Parsers\InstagramComParser;
-use AMgrade\VideoEmbed\Parsers\TikTokComParser;
-use AMgrade\VideoEmbed\Parsers\TwitchTVParser;
 use AMgrade\VideoEmbed\Parsers\VideoParser;
-use AMgrade\VideoEmbed\Parsers\VimeoComParser;
-use AMgrade\VideoEmbed\Parsers\WistiaComParser;
-use AMgrade\VideoEmbed\Parsers\YoutubeComParser;
-use AMgrade\VideoEmbed\Parsers\YoutuBeParser;
 use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Config;
 use InvalidArgumentException;
+
+use function array_keys;
+use function array_merge;
+use function in_array;
+use function mb_strlen;
+use function mb_strtolower;
+use function mb_substr;
+use function parse_url;
+use function substr_replace;
 
 use const null;
 
@@ -26,28 +26,9 @@ class VideoParserHelper
 
     protected static array $parsersMapping = [];
 
-    protected function __construct(
-        FacebookComParser $facebookComParser,
-        FbWatchParser $fbWatchParser,
-        InstagramComParser $instagramComParser,
-        TikTokComParser $tikTokComParser,
-        TwitchTVParser $twitchTVParser,
-        VimeoComParser $vimeoComParser,
-        WistiaComParser $wistiaComParser,
-        YoutubeComParser $youtubeComParser,
-        YoutuBeParser $youtuBeParser,
-    ) {
-        self::$parsersMapping = [
-            $facebookComParser::KEY => $facebookComParser,
-            $fbWatchParser::KEY => $fbWatchParser,
-            $instagramComParser::KEY => $instagramComParser,
-            $tikTokComParser::KEY => $tikTokComParser,
-            $twitchTVParser::KEY => $twitchTVParser,
-            $vimeoComParser::KEY => $vimeoComParser,
-            $wistiaComParser::KEY => $wistiaComParser,
-            $youtubeComParser::KEY => $youtubeComParser,
-            $youtuBeParser::KEY => $youtuBeParser,
-        ];
+    protected function __construct()
+    {
+        self::$parsersMapping = Config::get('video-embed.video-parsers', []);
     }
 
     public static function getVideoUrlAttributes($value): array
@@ -55,7 +36,7 @@ class VideoParserHelper
         return null !== $value
             ? self::getFormattedVideoUrl(
                 $value,
-                Config::get('video-embed.video-parsers.keys', []),
+                array_keys(Config::get('video-embed.video-parsers', [])),
             )
             : [];
     }
@@ -68,7 +49,10 @@ class VideoParserHelper
 
         $key = $videoUrl['key'] ?? null;
 
-        [$urlQuery, $attributes] = self::getIframeDataByKey($key);
+        $iframeDataByKey = self::getIframeDataByKey($key);
+
+        $urlQuery = $iframeDataByKey['query'] ?? [];
+        $attributes = $iframeDataByKey['attributes'] ?? [];
 
         return Container::getInstance()->make(VideoParser::class)->getIframeCode(
             $key,
@@ -119,7 +103,9 @@ class VideoParserHelper
 
         $defaultIframeConfig = self::getIframeConfig('default');
 
-        $iframeConfig = self::$parsersMapping[$key]->getIframeConfig() ?? [];
+        $iframeConfig = Container::getInstance()
+            ->make(self::$parsersMapping[$key])
+            ->getIframeConfig() ?? [];
 
         if (!in_array('attributes', $iframeConfig, true)) {
             $iframeConfig['attributes'] = [

@@ -19,4 +19,6 @@ interface VideoParserContract
         array $attributes = [],
         ?string $type = null,
     ): ?string;
+
+    public function getIframeConfig(): array;
 }

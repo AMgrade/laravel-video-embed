@@ -26,6 +26,8 @@ class VimeoComParser implements VideoParserContract
 
     public const KEY = 'vimeo.com';
 
+    public const CONFIG_KEY = 'attributes';
+
     public function parse(array $parsed, string $url): ?array
     {
         if (!$this->validate($parsed['host'])) {

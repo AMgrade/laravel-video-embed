@@ -25,6 +25,8 @@ class YoutubeComParser implements VideoParserContract
 
     public const KEY = 'youtube.com';
 
+    public const CONFIG_KEY = 'attributes';
+
     public function parse(array $parsed, string $url): ?array
     {
         if (!$this->validate($parsed['host'])) {

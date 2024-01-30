@@ -24,6 +24,8 @@ class TikTokComParser implements VideoParserContract
 
     public const KEY = 'tiktok.com';
 
+    public const CONFIG_KEY = 'attributes';
+
     public function parse(array $parsed, string $url): ?array
     {
         if (!$this->validate($parsed['host'])) {

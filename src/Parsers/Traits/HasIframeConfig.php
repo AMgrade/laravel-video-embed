@@ -12,6 +12,8 @@ trait HasIframeConfig
     {
         $iframeConfig = Config::get('video-embed.iframe');
 
-        return $iframeConfig[self::KEY][self::CONFIG_KEY ?? 'attributes'];
+        $iframeConfig = $iframeConfig[self::KEY] ?? [];
+
+        return $iframeConfig[self::CONFIG_KEY] ?? [];
     }
 }

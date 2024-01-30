@@ -50,12 +50,10 @@ return [
         ],
     ],
 
-    // The list of video parsers keys that would be used for parse video Urls
+    // The list of video parsers that would be used for parse video Urls
     'video-parsers' => [
-        'keys' => [
-            VimeoComParser::KEY,
-            YoutubeComParser::KEY,
-            YoutuBeParser::KEY,
-        ],
+        VimeoComParser::KEY => VimeoComParser::class,
+        YoutubeComParser::KEY => YoutubeComParser::class,
+        YoutuBeParser::KEY => YoutuBeParser::class,
     ],
 ];

@@ -22,6 +22,8 @@ class WistiaComParser implements VideoParserContract
 
     public const KEY = 'wistia.com';
 
+    public const CONFIG_KEY = 'attributes';
+
     public function parse(array $parsed, string $url): ?array
     {
         if (!$this->validate($parsed['host'])) {

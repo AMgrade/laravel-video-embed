@@ -19,6 +19,8 @@ class YoutuBeParser implements VideoParserContract
 
     public const KEY = 'youtu.be';
 
+    public const CONFIG_KEY = 'attributes';
+
     public function parse(array $parsed, string $url): ?array
     {
         if (!$this->validate($parsed['host'])) {
