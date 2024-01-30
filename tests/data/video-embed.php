@@ -14,7 +14,7 @@ return [
             'given' => 'https://www.instagram.com/reel/CsitlFJJYkm/?igshid=MzRlODBiNWFlZA==',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://www.instagram.com/reel/',
         ],
         [
@@ -27,7 +27,7 @@ return [
             'given' => 'https://www.instagram.com/reels/CuASh4CIFOi/',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://www.instagram.com/reels/',
         ],
         [
@@ -40,11 +40,11 @@ return [
             'given' => 'https://www.instagram.com/p/CuthPs_vH3p/?igshid=MTc4MmM1YmI2Ng==',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://www.instagram.com/p/',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'instagram.com',
         ],
     ],
@@ -59,7 +59,7 @@ return [
             'given' => 'https://www.facebook.com/KaterynaZhyvopystseva/videos/1061701618142559/?idorvanity=3007159366031233',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://www.facebook.com/videos/',
         ],
         [
@@ -72,11 +72,11 @@ return [
             'given' => 'https://www.facebook.com/watch?v=925596192040121',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://www.facebook.com/watch?v=',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'facebook.com',
         ],
     ],
@@ -91,11 +91,11 @@ return [
             'given' => 'https://fb.watch/lKafqS4UVF/',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://fb.watch/',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'fb.watch',
         ],
     ],
@@ -110,11 +110,11 @@ return [
             'given' => 'https://vm.tiktok.com/ZM2QKoRHR/',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://vm.tiktok.com/',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'vm.tiktok.com',
         ],
         [
@@ -127,11 +127,11 @@ return [
             'given' => 'https://www.tiktok.com/@surthycooks/video/7233099261691333893/',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://tiktok.com/',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'tiktok.com',
         ],
     ],
@@ -146,7 +146,7 @@ return [
             'given' => 'https://vimeo.com/manage/videos/842145020',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://vimeo.com/manage/videos/',
         ],
         [
@@ -159,11 +159,11 @@ return [
             'given' => 'https://vimeo.com/showcase/5376202',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://vimeo.com/showcase/',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'vimeo.com',
         ],
         [
@@ -176,7 +176,7 @@ return [
             'given' => 'https://vimeo.com/manage/showcases/10530930/info',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://vimeo.com/showcases/',
         ],
     ],
@@ -191,11 +191,11 @@ return [
             'given' => 'https://tatianakmml63.wistia.com/medias/0l9hitj41v',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://wistia.com/medias',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'wistia.com',
         ],
     ],
@@ -210,11 +210,11 @@ return [
             'given' => 'https://youtu.be/m8rFUIL7Sic',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://youtu.be/',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'youtu.be',
         ],
     ],
@@ -229,20 +229,20 @@ return [
             'given' => 'https://www.twitch.tv/gtlhistory/video/1862293583',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://twitch.tv/video',
         ],
         [
             'expected' => [
                 'id' => 'EmpathicCheerfulDonutHeyGuys-A0R11jMIrqBrmKwx',
                 'key' => 'twitch.tv',
-                'type' => 'clip',
+                'type' => 'clips',
                 'original' => 'https://clips.twitch.tv/EmpathicCheerfulDonutHeyGuys-A0R11jMIrqBrmKwx',
             ],
             'given' => 'https://clips.twitch.tv/EmpathicCheerfulDonutHeyGuys-A0R11jMIrqBrmKwx',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://clips.twitch.tv',
         ],
         [
@@ -255,11 +255,11 @@ return [
             'given' => 'https://www.twitch.tv/collections/KP41DUvWcBcLTg',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://www.twitch.tv/collections/',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'twitch.tv',
         ],
     ],
@@ -274,7 +274,7 @@ return [
             'given' => 'https://www.youtube.com/watch?v=4xDzrJKXOOY',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://youtube.com/',
         ],
         [
@@ -287,11 +287,11 @@ return [
             'given' => 'https://www.youtube.com/watch?v=4XTy6ucbLNg&list=PLvTBThJr861yMBhpKafII3HZLAYujuNWw&pp=iAQB',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://www.youtube.com/watch?list',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://www.youtube.com/watch?list=',
         ],
         [
@@ -304,11 +304,11 @@ return [
             'given' => 'https://www.youtube.com/shorts/gDEPG9ZIYRY',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'https://youtube.com/shorts',
         ],
         [
-            'expected' => null,
+            'expected' => [],
             'given' => 'youtube.com',
         ],
     ],

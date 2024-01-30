@@ -62,7 +62,7 @@ class VideoEmbedHelper
     {
         $parsedUrl = parse_url($videoUrl);
 
-        $urlDomainLength = mb_strlen($parsedUrl['scheme']) + mb_strlen($parsedUrl['host']);
+        $urlDomainLength = mb_strlen($parsedUrl['scheme'] ?? '') + mb_strlen($parsedUrl['host'] ?? '');
 
         $url = substr_replace(
             $videoUrl,
