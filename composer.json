@@ -12,6 +12,11 @@
     "laravel/framework": "9.* || 10.*",
     "mcmatters/ticl": "*"
   },
+  "require-dev": {
+    "phpunit/phpunit": "^10.4",
+    "orchestra/testbench": "^8.21",
+    "orchestra/testbench-core": "^8.21"
+  },
   "autoload": {
     "psr-4": {
       "AMgrade\\VideoEmbed\\": "src/"
@@ -22,6 +27,11 @@
       "providers": [
         "AMgrade\\VideoEmbed\\VideoEmbedServiceProvider"
       ]
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AMgrade\\VideoEmbed\\Tests\\": "tests/"
     }
   }
 }
