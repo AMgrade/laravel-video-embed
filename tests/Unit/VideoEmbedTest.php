@@ -4,17 +4,12 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Tests\Unit;
 
-use AMgrade\VideoEmbed\Parsers\VideoParser;
+use AMgrade\VideoEmbed\Helpers\VideoEmbedHelper;
 use Illuminate\Container\Container;
 use PHPUnit\Framework\TestCase;
 
 class VideoEmbedTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-    }
-
     /**
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
@@ -22,13 +17,13 @@ class VideoEmbedTest extends TestCase
     {
         $videoEmbedData = require __DIR__ . '/../data/video-embed.php';
 
-        $parser = Container::getInstance()->make(VideoParser::class);
+        $helper = Container::getInstance()->make(VideoEmbedHelper::class);
 
         foreach ($videoEmbedData as $key => $value) {
             foreach ($value as $item) {
                 $this->assertEquals(
                     $item['expected'],
-                    $parser->parse($item['given'], [$key]),
+                    $helper::getVideoUrlAttributes($item['given']),
                 );
             }
         }
