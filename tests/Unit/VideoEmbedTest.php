@@ -14,7 +14,7 @@ class VideoEmbedTest extends TestCase
      */
     public function testParsers(): void
     {
-        $videoEmbedData = require __DIR__ . '/../data/video-embed.php';
+        $videoEmbedData = require __DIR__.'/../data/video-embed.php';
 
         foreach ($videoEmbedData as $key => $value) {
             foreach ($value as $item) {

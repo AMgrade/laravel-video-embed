@@ -10,7 +10,7 @@
   "require": {
     "php": ">=8.0.2",
     "laravel/framework": "9.* || 10.*",
-    "mcmatters/ticl": "^0.4.2"
+    "mcmatters/ticl": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "^10.4",
