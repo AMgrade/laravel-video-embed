@@ -59,7 +59,7 @@ class VideoEmbedHelper
         );
     }
 
-    protected static function getFormattedVideoUrl(string $videoUrl, array $keys = []): ?array
+    protected static function getFormattedVideoUrl(string $videoUrl, array $keys = []): array
     {
         $parseUrl = parse_url($videoUrl);
 
@@ -76,7 +76,7 @@ class VideoEmbedHelper
 
         return Container::getInstance()
             ->make(VideoParser::class)
-            ->parse($url, $keys);
+            ->parse($url, $keys) ?? [];
     }
 
     protected static function getIframeDataByKey(?string $key = null): array
