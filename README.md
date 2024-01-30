@@ -41,9 +41,9 @@ use AMgrade\VideoEmbed\Helpers\VideoEmbedHelper;
 
 require __DIR__.'/vendor/autoload.php';
 
-// Get parsed video URL data
+// Get parsed video URL data.
 $videoUrlAttributes = VideoEmbedHelper::getVideoUrlAttributes('https://www.youtube.com/shorts/gDEPG9ZIYRY');
 
-//Get iframe code
+// Get iframe code.
 $iframeCode = VideoEmbedHelper::getVideoIframeCode($videoUrlAttributes);
 ```
