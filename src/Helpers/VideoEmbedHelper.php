@@ -11,7 +11,6 @@ use InvalidArgumentException;
 
 use function array_keys;
 use function array_merge;
-use function in_array;
 use function mb_strlen;
 use function mb_strtolower;
 use function mb_substr;
@@ -22,16 +21,16 @@ use const null;
 
 class VideoEmbedHelper
 {
-    protected static array $iframeConfig = [];
+    protected static ?array $iframeConfig = null;
 
-    protected static array $parsersMapping = [];
+    protected static ?array $parsersMapping = null;
 
     public static function getVideoUrlAttributes($value): array
     {
         return null !== $value
             ? self::getFormattedVideoUrl(
                 $value,
-                array_keys(Config::get('video-embed.video-parsers', [])),
+                array_keys(self::getVideoParsersConfig()),
             )
             : [];
     }
@@ -61,16 +60,14 @@ class VideoEmbedHelper
 
     protected static function getFormattedVideoUrl(string $videoUrl, array $keys = []): array
     {
-        $parseUrl = parse_url($videoUrl);
+        $parsedUrl = parse_url($videoUrl);
 
-        $urlDomainLength = mb_strlen($parseUrl['scheme']) + mb_strlen($parseUrl['host']);
-
-        $startPosition = 0;
+        $urlDomainLength = mb_strlen($parsedUrl['scheme']) + mb_strlen($parsedUrl['host']);
 
         $url = substr_replace(
             $videoUrl,
-            mb_strtolower(mb_substr($videoUrl, $startPosition, $urlDomainLength)),
-            $startPosition,
+            mb_strtolower(mb_substr($videoUrl, 0, $urlDomainLength)),
+            0,
             $urlDomainLength,
         );
 
@@ -81,11 +78,9 @@ class VideoEmbedHelper
 
     protected static function getIframeDataByKey(?string $key = null): array
     {
-        self::$parsersMapping = Config::get('video-embed.video-parsers', []);
-
-        if (null === $key || !isset(self::$parsersMapping[$key])) {
+        if (null === $key || !isset(self::getVideoParsersConfig()[$key])) {
             throw new InvalidArgumentException(
-                "Provided parser key {$key} is invalid",
+                "Provided parser key '{$key}' is invalid",
             );
         }
 
@@ -95,7 +90,7 @@ class VideoEmbedHelper
             ->make(self::$parsersMapping[$key])
             ->getIframeConfig() ?? [];
 
-        if (!in_array('attributes', $iframeConfig, true)) {
+        if (!isset($iframeConfig['attributes'])) {
             $iframeConfig['attributes'] = [
                 'height' => $defaultIframeConfig['attributes']['height'],
                 'width' => $defaultIframeConfig['attributes']['width'],
@@ -117,10 +112,19 @@ class VideoEmbedHelper
 
     protected static function getIframeConfig(?string $key = null): array
     {
-        if (empty(self::$iframeConfig)) {
-            self::$iframeConfig = Config::get('video-embed.iframe');
+        if (null === self::$iframeConfig) {
+            self::$iframeConfig = Config::get('video-embed.iframe', []);
         }
 
         return $key ? (self::$iframeConfig[$key] ?? []) : self::$iframeConfig;
+    }
+
+    protected static function getVideoParsersConfig(): array
+    {
+        if (null === self::$parsersMapping) {
+            self::$parsersMapping = Config::get('video-embed.video-parsers', []);
+        }
+
+        return self::$parsersMapping;
     }
 }

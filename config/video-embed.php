@@ -11,7 +11,7 @@ use AMgrade\VideoEmbed\Parsers\YoutubeComParser;
 use AMgrade\VideoEmbed\Parsers\YoutuBeParser;
 
 return [
-    // List of settings for video iframes
+    // List of settings for video iframes.
     'iframe' => [
         'default' => [
             'attributes' => [
@@ -50,7 +50,7 @@ return [
         ],
     ],
 
-    // The list of video parsers that would be used for parse video Urls
+    // The list of video parsers that would be used for parse video Urls.
     'video-parsers' => [
         VimeoComParser::KEY => VimeoComParser::class,
         YoutubeComParser::KEY => YoutubeComParser::class,
