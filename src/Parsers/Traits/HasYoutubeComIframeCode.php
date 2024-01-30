@@ -29,6 +29,7 @@ trait HasYoutubeComIframeCode
                 'id' => 'list',
             ],
             'single' => ['url' => "https://www.youtube.com/embed/{$id}"],
+            'shorts' => ['url' => "https://www.youtube.com/embed/{$id}"],
         ];
 
         if (null === ($link = $mapTypes[$type] ?? null)) {

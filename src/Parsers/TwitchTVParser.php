@@ -132,7 +132,7 @@ class TwitchTVParser implements VideoParserContract
         return [
             'key' => 'twitch.tv',
             'id' => $parsed['path'],
-            'type' => 'clip',
+            'type' => 'clips',
         ];
     }
 }
