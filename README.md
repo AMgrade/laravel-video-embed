@@ -29,17 +29,21 @@ For configuring video iframe open `config/video-embed.php` and add or change hei
 
 You can add the keys of parsers that need to be used in video URL parsing in section `video-parsers` in `config/video-embed.php`.
 
-For getting parsed video information call `getVideoUrlAttributes` method from `VideoEmbedHelper` and pass video URL.
+## Usage
+### Get iframe code for reflection video:
 
-Example of received data from a parsed video URL: 
+```php
+<?php
 
-```bash
-{
-	"id": "lF0-wjogo5w",
-	"key": "youtube.com",
-	"type": "single",
-	"original": "https://www.youtube.com/watch?v=lF0-wjogo5w"
-}
+declare(strict_types=1);
+
+use AMgrade\VideoEmbed\Helpers\VideoEmbedHelper;
+
+require __DIR__.'/vendor/autoload.php';
+
+// Get parsed video URL data.
+$videoUrlAttributes = VideoEmbedHelper::getVideoUrlAttributes('https://www.youtube.com/shorts/gDEPG9ZIYRY');
+
+// Get iframe code.
+$iframeCode = VideoEmbedHelper::getVideoIframeCode($videoUrlAttributes);
 ```
-
-For getting video iframe code call `getVideoIframeCode` method and pass result into `getVideoUrlAttributes` method from `VideoEmbedHelper` for getting iframe tag with information for reflection video.

@@ -15,8 +15,8 @@ use const null;
 
 class YoutuBeParser implements VideoParserContract
 {
-    use HasYoutubeComIframeCode;
     use HasIframeConfig;
+    use HasYoutubeComIframeCode;
 
     public const KEY = 'youtu.be';
 

@@ -17,7 +17,7 @@ use const true;
 
 class VideoParser
 {
-    protected array $parsers = [];
+    protected ?array $parsers = null;
 
     protected array $resolvedParsers = [];
 
@@ -79,7 +79,9 @@ class VideoParser
      */
     protected function getParsers(array $keys = []): array
     {
-        $this->parsers = Config::get('video-embed.video-parsers', []);
+        if (null === $this->parsers) {
+            $this->parsers = Config::get('video-embed.video-parsers', []);
+        }
 
         $parsers = [];
 
