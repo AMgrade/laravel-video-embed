@@ -6,6 +6,7 @@ namespace AMgrade\VideoEmbed\Parsers;
 
 use AMgrade\VideoEmbed\Parsers\Traits\HasIframeConfig;
 use AMgrade\VideoEmbed\Parsers\Traits\HasYoutubeComIframeCode;
+use AMgrade\VideoEmbed\Parsers\VideoParserContract;
 
 use function preg_match;
 use function trim;

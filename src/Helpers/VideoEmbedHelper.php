@@ -20,16 +20,11 @@ use function substr_replace;
 
 use const null;
 
-class VideoParserHelper
+class VideoEmbedHelper
 {
     protected static array $iframeConfig = [];
 
     protected static array $parsersMapping = [];
-
-    protected function __construct()
-    {
-        self::$parsersMapping = Config::get('video-embed.video-parsers', []);
-    }
 
     public static function getVideoUrlAttributes($value): array
     {
@@ -93,9 +88,11 @@ class VideoParserHelper
         return $key ? (self::$iframeConfig[$key] ?? []) : self::$iframeConfig;
     }
 
-    protected static function getIframeDataByKey(string $key): array
+    protected static function getIframeDataByKey(?string $key = null): array
     {
-        if (!isset(self::$parsersMapping[$key])) {
+        self::$parsersMapping = Config::get('video-embed.video-parsers', []);
+
+        if (null === $key || !isset(self::$parsersMapping[$key])) {
             throw new InvalidArgumentException(
                 "Provided parser key {$key} is invalid",
             );
@@ -121,7 +118,7 @@ class VideoParserHelper
                 'allow' => 'autoplay; fullscreen; clipboard-write; encrypted-media; picture-in-picture',
                 'allowfullscreen' => 'true',
                 'allowtransparency' => 'true',
-            ]
+            ],
         );
 
         return $iframeConfig;

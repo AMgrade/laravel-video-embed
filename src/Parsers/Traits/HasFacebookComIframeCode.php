@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Parsers\Traits;
 
-use Illuminate\Support\Facades\Config;
 use function http_build_query;
 use function implode;
 use function sprintf;

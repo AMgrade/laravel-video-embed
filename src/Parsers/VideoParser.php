@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Parsers;
 
+use Illuminate\Support\Facades\Config;
 use InvalidArgumentException;
 
 use function array_keys;
@@ -16,17 +17,7 @@ use const true;
 
 class VideoParser
 {
-    protected array $parsers = [
-        FacebookComParser::KEY => FacebookComParser::class,
-        FbWatchParser::KEY => FbWatchParser::class,
-        InstagramComParser::KEY => InstagramComParser::class,
-        YoutuBeParser::KEY => YoutuBeParser::class,
-        YoutubeComParser::KEY => YoutubeComParser::class,
-        VimeoComParser::KEY => VimeoComParser::class,
-        TikTokComParser::KEY => TikTokComParser::class,
-        TwitchTVParser::KEY => TwitchTVParser::class,
-        WistiaComParser::KEY => WistiaComParser::class,
-    ];
+    protected array $parsers = [];
 
     protected array $resolvedParsers = [];
 
@@ -88,6 +79,8 @@ class VideoParser
      */
     protected function getParsers(array $keys = []): array
     {
+        $this->parsers = Config::get('video-embed.video-parsers', []);
+
         $parsers = [];
 
         foreach ($keys ?: array_keys($this->parsers) as $key) {

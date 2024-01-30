@@ -27,9 +27,9 @@ php artisan video-embed:publish
 
 For configuring video iframe open `config/video-embed.php` and add or change height and width for video parser(s).
 
-You can add the keys of parsers that need to be used in video URL parsing in section `video-parsers`, `keys` in `config/video-embed.php`.
+You can add the keys of parsers that need to be used in video URL parsing in section `video-parsers` in `config/video-embed.php`.
 
-For getting parsed video information call `getVideoUrlAttributes` method from `VideoParserHelper` and pass video URL.
+For getting parsed video information call `getVideoUrlAttributes` method from `VideoEmbedHelper` and pass video URL.
 
 Example of received data from a parsed video URL: 
 
@@ -42,4 +42,4 @@ Example of received data from a parsed video URL:
 }
 ```
 
-For getting video iframe code call `getVideoIframeCode` method and pass result into `getVideoUrlAttributes` method from `VideoParserHelper` for getting iframe tag with information for reflection video.
+For getting video iframe code call `getVideoIframeCode` method and pass result into `getVideoUrlAttributes` method from `VideoEmbedHelper` for getting iframe tag with information for reflection video.
