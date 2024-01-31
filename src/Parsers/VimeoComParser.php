@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Parsers;
 
-use AMgrade\VideoEmbed\Parsers\Traits\HasIframeConfig;
+use AMgrade\VideoEmbed\Parsers\AbstractVideoParser;
 use AMgrade\VideoEmbed\Parsers\VideoParserContract;
 
-use function http_build_query;
-use function implode;
 use function mb_strlen;
 use function mb_strpos;
 use function mb_substr;
@@ -21,10 +19,8 @@ use function trim;
 use const false;
 use const null;
 
-class VimeoComParser implements VideoParserContract
+class VimeoComParser extends AbstractVideoParser implements VideoParserContract
 {
-    use HasIframeConfig;
-
     public const KEY = 'vimeo.com';
 
     public const CONFIG_KEY = 'attributes';
@@ -78,23 +74,10 @@ class VimeoComParser implements VideoParserContract
             return null;
         }
 
-        $url = sprintf($url, $id);
-
-        if (!empty($urlQuery)) {
-            $url .= '?'.http_build_query($urlQuery);
-        }
-
-        $string = '<iframe %s />';
-
-        $attributes['src'] = $url;
-
-        $keyedAttributes = [];
-
-        foreach ($attributes as $key => $value) {
-            $keyedAttributes[] = "{$key}=\"{$value}\"";
-        }
-
-        return sprintf($string, implode(' ', $keyedAttributes));
+        return $this->buildIframeCode(
+            sprintf($url, $id),
+            $urlQuery,
+        );
     }
 
     protected function parseFromPath(string $parsedPath, string $type): ?array
@@ -106,12 +89,7 @@ class VimeoComParser implements VideoParserContract
                 return null;
             }
 
-            $videoId = mb_substr(
-                $parsedPath,
-                mb_strpos($parsedPath, $type) + mb_strlen($type),
-            );
-
-            if (empty($videoId)) {
+            if (empty($videoId = $this->getVideoId($parsedPath, $type))) {
                 return null;
             }
 

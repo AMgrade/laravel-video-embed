@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Parsers;
 
-use AMgrade\VideoEmbed\Parsers\Traits\HasIframeConfig;
+use AMgrade\VideoEmbed\Parsers\AbstractVideoParser;
 use AMgrade\VideoEmbed\Parsers\Traits\HasYoutubeComIframeCode;
 use AMgrade\VideoEmbed\Parsers\VideoParserContract;
 
 use function explode;
-use function mb_strlen;
-use function mb_strpos;
-use function mb_substr;
 use function preg_match;
 use function str_contains;
 use function str_starts_with;
@@ -19,9 +16,8 @@ use function trim;
 
 use const null;
 
-class YoutubeComParser implements VideoParserContract
+class YoutubeComParser extends AbstractVideoParser implements VideoParserContract
 {
-    use HasIframeConfig;
     use HasYoutubeComIframeCode;
 
     public const KEY = 'youtube.com';
@@ -67,12 +63,7 @@ class YoutubeComParser implements VideoParserContract
             return null;
         }
 
-        $playlistId = mb_substr(
-            $parsed['query'],
-            mb_strpos($parsed['query'], 'list=') + mb_strlen('list='),
-        );
-
-        if (empty($playlistId)) {
+        if (empty($playlistId = $this->getVideoId($parsed['query'], 'list='))) {
             return null;
         }
 
@@ -89,12 +80,7 @@ class YoutubeComParser implements VideoParserContract
             return null;
         }
 
-        $videoId = mb_substr(
-            $parsed['path'],
-            mb_strpos($parsed['path'], 'shorts/') + mb_strlen('shorts/'),
-        );
-
-        if (empty($videoId)) {
+        if (empty($videoId = $this->getVideoId($parsed['path'], 'shorts/'))) {
             return null;
         }
 

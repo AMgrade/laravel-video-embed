@@ -4,23 +4,15 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Parsers;
 
-use AMgrade\VideoEmbed\Parsers\Traits\HasIframeConfig;
+use AMgrade\VideoEmbed\Parsers\AbstractVideoParser;
 use AMgrade\VideoEmbed\Parsers\VideoParserContract;
 
-use function http_build_query;
-use function implode;
-use function mb_strlen;
-use function mb_strpos;
-use function mb_substr;
 use function preg_match;
-use function sprintf;
 
 use const null;
 
-class WistiaComParser implements VideoParserContract
+class WistiaComParser extends AbstractVideoParser implements VideoParserContract
 {
-    use HasIframeConfig;
-
     public const KEY = 'wistia.com';
 
     public const CONFIG_KEY = 'attributes';
@@ -31,12 +23,7 @@ class WistiaComParser implements VideoParserContract
             return null;
         }
 
-        $videoId = mb_substr(
-            $parsed['path'],
-            mb_strpos($parsed['path'], 'medias/') + mb_strlen('medias/'),
-        );
-
-        if (empty($videoId)) {
+        if (empty($videoId = $this->getVideoId($parsed['path'], 'medias/'))) {
             return null;
         }
 
@@ -62,22 +49,9 @@ class WistiaComParser implements VideoParserContract
         array $attributes = [],
         ?string $type = null,
     ): ?string {
-        $url = "https://fast.wistia.net/embed/iframe/{$id}";
-
-        if (!empty($urlQuery)) {
-            $url .= '?'.http_build_query($urlQuery);
-        }
-
-        $string = '<iframe %s />';
-
-        $attributes['src'] = $url;
-
-        $keyedAttributes = [];
-
-        foreach ($attributes as $key => $value) {
-            $keyedAttributes[] = "{$key}=\"{$value}\"";
-        }
-
-        return sprintf($string, implode(' ', $keyedAttributes));
+        return $this->buildIframeCode(
+            "https://fast.wistia.net/embed/iframe/{$id}",
+            $urlQuery,
+        );
     }
 }

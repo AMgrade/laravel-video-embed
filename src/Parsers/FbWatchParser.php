@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Parsers;
 
+use AMgrade\VideoEmbed\Parsers\AbstractVideoParser;
 use AMgrade\VideoEmbed\Parsers\Traits\HasFacebookComIframeCode;
-use AMgrade\VideoEmbed\Parsers\Traits\HasIframeConfig;
 use AMgrade\VideoEmbed\Parsers\VideoParserContract;
 use Illuminate\Support\Facades\Log;
 use McMatters\Ticl\Client;
 use Throwable;
 
 use function explode;
-use function mb_strlen;
-use function mb_strpos;
-use function mb_substr;
 use function parse_url;
 use function preg_match;
 use function str_contains;
@@ -27,10 +24,9 @@ use const null;
 use const PHP_URL_PATH;
 use const PHP_URL_QUERY;
 
-class FbWatchParser implements VideoParserContract
+class FbWatchParser extends AbstractVideoParser implements VideoParserContract
 {
     use HasFacebookComIframeCode;
-    use HasIframeConfig;
 
     public const KEY = 'fb.watch';
 
@@ -105,12 +101,7 @@ class FbWatchParser implements VideoParserContract
         $parsed['path'] = parse_url($followingUrl, PHP_URL_PATH);
         $parsed['path'] = trim($parsed['path'], '/');
 
-        $videoId = mb_substr(
-            $parsed['path'],
-            mb_strpos($parsed['path'], 'videos/') + mb_strlen('videos/'),
-        );
-
-        return trim($videoId);
+        return trim($this->getVideoId($parsed['path'], 'videos/'));
     }
 
     protected function parseQueryUrl(string $url, string $searchKey): ?string

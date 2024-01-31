@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Parsers\Traits;
 
-use function http_build_query;
-use function implode;
-use function sprintf;
-
 use const false;
 use const null;
 
@@ -40,18 +36,6 @@ trait HasYoutubeComIframeCode
             $linkQuery[$link['id']] = $id;
         }
 
-        $url = $link['url'].'?'.http_build_query($linkQuery);
-
-        $string = '<iframe %s />';
-
-        $attributes['src'] = $url;
-
-        $keyedAttributes = [];
-
-        foreach ($attributes as $key => $value) {
-            $keyedAttributes[] = "{$key}=\"{$value}\"";
-        }
-
-        return sprintf($string, implode(' ', $keyedAttributes));
+        return $this->buildIframeCode($link['url'], $linkQuery);
     }
 }
