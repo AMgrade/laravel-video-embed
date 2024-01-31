@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Parsers;
 
-use AMgrade\VideoEmbed\Parsers\Traits\HasIframeConfig;
 use AMgrade\VideoEmbed\Parsers\VideoParserContract;
 
 use function http_build_query;
@@ -22,8 +21,6 @@ use const null;
 
 class TwitchTVParser implements VideoParserContract
 {
-    use HasIframeConfig;
-
     public const KEY = 'twitch.tv';
 
     public const CONFIG_KEY = 'query';

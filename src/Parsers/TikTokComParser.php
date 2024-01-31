@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Parsers;
 
-use AMgrade\VideoEmbed\Parsers\Traits\HasIframeConfig;
 use AMgrade\VideoEmbed\Parsers\VideoParserContract;
 
 use function http_build_query;
@@ -19,10 +18,8 @@ use function trim;
 
 use const null;
 
-class TikTokComParser implements VideoParserContract
+class TikTokComParser extends AbstractVideoParser implements VideoParserContract
 {
-    use HasIframeConfig;
-
     public const KEY = 'tiktok.com';
 
     public const CONFIG_KEY = 'attributes';
@@ -67,23 +64,10 @@ class TikTokComParser implements VideoParserContract
         array $attributes = [],
         ?string $type = null,
     ): ?string {
-        $url = "https://www.tiktok.com/embed/v2/{$id}";
-
-        if (!empty($urlQuery)) {
-            $url .= '?'.http_build_query($urlQuery);
-        }
-
-        $string = '<iframe %s />';
-
-        $attributes['src'] = $url;
-
-        $keyedAttributes = [];
-
-        foreach ($attributes as $key => $value) {
-            $keyedAttributes[] = "{$key}=\"{$value}\"";
-        }
-
-        return sprintf($string, implode(' ', $keyedAttributes));
+        return $this->buildIframeCode(
+            "https://www.tiktok.com/embed/v2/{$id}",
+            $urlQuery,
+        );
     }
 
     protected function parseFromVideo(array $parsed): ?array
