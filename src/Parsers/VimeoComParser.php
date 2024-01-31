@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Parsers;
 
+use AMgrade\VideoEmbed\Parsers\AbstractVideoParser;
 use AMgrade\VideoEmbed\Parsers\VideoParserContract;
 
-use function http_build_query;
-use function implode;
 use function mb_strlen;
 use function mb_strpos;
 use function mb_substr;
@@ -92,12 +91,7 @@ class VimeoComParser extends AbstractVideoParser implements VideoParserContract
                 return null;
             }
 
-            $videoId = mb_substr(
-                $parsedPath,
-                mb_strpos($parsedPath, $type) + mb_strlen($type),
-            );
-
-            if (empty($videoId)) {
+            if (empty($videoId = $this->getVideoId($parsedPath, $type))) {
                 return null;
             }
 

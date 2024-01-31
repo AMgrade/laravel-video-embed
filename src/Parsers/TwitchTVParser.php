@@ -4,22 +4,17 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Parsers;
 
+use AMgrade\VideoEmbed\Parsers\AbstractVideoParser;
 use AMgrade\VideoEmbed\Parsers\VideoParserContract;
 
-use function http_build_query;
-use function implode;
-use function mb_strlen;
-use function mb_strpos;
-use function mb_substr;
 use function preg_match;
-use function sprintf;
 use function str_contains;
 use function trim;
 
 use const false;
 use const null;
 
-class TwitchTVParser implements VideoParserContract
+class TwitchTVParser extends AbstractVideoParser implements VideoParserContract
 {
     public const KEY = 'twitch.tv';
 
@@ -83,19 +78,7 @@ class TwitchTVParser implements VideoParserContract
             $urlQuery[$link['id']] = $id;
         }
 
-        $url = $link['url'].'?'.http_build_query($urlQuery);
-
-        $string = '<iframe %s />';
-
-        $attributes['src'] = $url;
-
-        $keyedAttributes = [];
-
-        foreach ($attributes as $key => $value) {
-            $keyedAttributes[] = "{$key}=\"{$value}\"";
-        }
-
-        return sprintf($string, implode(' ', $keyedAttributes));
+        return $this->buildIframeCode($link['url'], $urlQuery);
     }
 
     protected function parseFromPathType(string $parsedPath, string $type): ?array
@@ -104,12 +87,7 @@ class TwitchTVParser implements VideoParserContract
             return null;
         }
 
-        $videoId = mb_substr(
-            $parsedPath,
-            mb_strpos($parsedPath, $type) + mb_strlen($type),
-        );
-
-        if (empty($videoId)) {
+        if (empty($videoId = $this->getVideoId($parsedPath, $type))) {
             return null;
         }
 

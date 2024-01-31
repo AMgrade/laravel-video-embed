@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Parsers;
 
+use AMgrade\VideoEmbed\Parsers\AbstractVideoParser;
 use AMgrade\VideoEmbed\Parsers\VideoParserContract;
 
-use function mb_strlen;
-use function mb_strpos;
-use function mb_substr;
 use function preg_match;
 use function str_starts_with;
 use function trim;
@@ -63,12 +61,7 @@ class InstagramComParser extends AbstractVideoParser implements VideoParserContr
                 continue;
             }
 
-            $videoId = mb_substr(
-                $parsedPath,
-                mb_strpos($parsedPath, $path) + mb_strlen($path),
-            );
-
-            if (empty($videoId)) {
+            if (empty($videoId = $this->getVideoId($parsedPath, $path))) {
                 continue;
             }
 

@@ -5,16 +5,13 @@ declare(strict_types=1);
 namespace AMgrade\VideoEmbed\Parsers;
 
 use AMgrade\VideoEmbed\Parsers\Traits\HasIframeConfig;
-use Illuminate\Support\Facades\Config;
-use InvalidArgumentException;
 
-use function array_keys;
-use function array_merge;
-use function parse_url;
-
-use const false;
-use const null;
-use const true;
+use function http_build_query;
+use function implode;
+use function mb_strlen;
+use function mb_strpos;
+use function mb_substr;
+use function sprintf;
 
 class AbstractVideoParser
 {
@@ -37,5 +34,13 @@ class AbstractVideoParser
         }
 
         return sprintf($string, implode(' ', $keyedAttributes));
+    }
+
+    protected function getVideoId(string $parsedPath, string $path): string
+    {
+        return mb_substr(
+            $parsedPath,
+            mb_strpos($parsedPath, $path) + mb_strlen($path),
+        );
     }
 }

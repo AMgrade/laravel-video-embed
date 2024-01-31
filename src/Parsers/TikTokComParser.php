@@ -4,15 +4,10 @@ declare(strict_types=1);
 
 namespace AMgrade\VideoEmbed\Parsers;
 
+use AMgrade\VideoEmbed\Parsers\AbstractVideoParser;
 use AMgrade\VideoEmbed\Parsers\VideoParserContract;
 
-use function http_build_query;
-use function implode;
-use function mb_strlen;
-use function mb_strpos;
-use function mb_substr;
 use function preg_match;
-use function sprintf;
 use function str_contains;
 use function trim;
 
@@ -76,12 +71,7 @@ class TikTokComParser extends AbstractVideoParser implements VideoParserContract
             return null;
         }
 
-        $videoId = mb_substr(
-            $parsed['path'],
-            mb_strpos($parsed['path'], 'video/') + mb_strlen('video/'),
-        );
-
-        if (empty($videoId)) {
+        if (empty($videoId = $this->getVideoId($parsed['path'], 'video/'))) {
             return null;
         }
 
