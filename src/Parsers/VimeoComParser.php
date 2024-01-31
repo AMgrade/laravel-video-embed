@@ -74,8 +74,6 @@ class VimeoComParser extends AbstractVideoParser implements VideoParserContract
             return null;
         }
 
-        $url = sprintf($url, $id);
-
         return $this->buildIframeCode(
             sprintf($url, $id),
             $urlQuery,

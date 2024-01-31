@@ -13,7 +13,7 @@ use function mb_strpos;
 use function mb_substr;
 use function sprintf;
 
-class AbstractVideoParser
+abstract class AbstractVideoParser
 {
     use HasIframeConfig;
 
